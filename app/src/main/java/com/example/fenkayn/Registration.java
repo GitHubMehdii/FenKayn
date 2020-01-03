@@ -26,11 +26,13 @@ public class Registration extends AppCompatActivity {
     Button next;
     DatePickerDialog picker;
     EditText registerBirthDate;
+    DatabaseHelper mydb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+        mydb =new DatabaseHelper(this);
 
         this.initLogin();
 
@@ -169,7 +171,7 @@ public class Registration extends AppCompatActivity {
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .show();
                 }
-                else{
+                else {
                     // set user
                     User user = new User();
                     user.setEmail(registerEmail.getText().toString().trim());
@@ -178,7 +180,7 @@ public class Registration extends AppCompatActivity {
                     user.setBirthDate(registerBirthDate.getText().toString().trim());
 
                     int checkedId = registerGender.getCheckedRadioButtonId();
-                    RadioButton checkedRadio = (RadioButton)findViewById(checkedId);
+                    RadioButton checkedRadio = (RadioButton) findViewById(checkedId);
                     String gender = checkedRadio.getText().toString().trim().equals("Homme") ?
                             "male" : "female";
                     user.setGender(gender);
@@ -186,7 +188,18 @@ public class Registration extends AppCompatActivity {
                     System.out.println(user);
 
                     // add user
-                    // code here
+                    boolean alreadyRegister = mydb.checkUserByEmail(user.getEmail());
+                    if (alreadyRegister == false){
+                        mydb.addUser(user.getEmail(), user.getPassword(), user.getName(), user.getBirthDate(), user.getGender());
+                        // code here redirection
+
+                    }else if(alreadyRegister == true){
+                        new AlertDialog.Builder(Registration.this)
+                                .setTitle("Utilisateur déja enregistré")
+                                .setPositiveButton(android.R.string.yes, null)
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                    }
                 }
 
             }
