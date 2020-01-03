@@ -28,7 +28,7 @@ public class Registration extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-<<<<<<< HEAD
+
         DatabaseHelper mydb = new DatabaseHelper(this);
 
         boolean isInserted = mydb.addUser("oussama@gmail.com","123","mehdiC","14/1/120","male");
@@ -37,7 +37,7 @@ public class Registration extends AppCompatActivity {
         }else{
             Toast.makeText(Registration.this,"Data Not Inserted",Toast.LENGTH_LONG).show();
         }
-=======
+
 
         this.initLogin();
 
@@ -74,7 +74,6 @@ public class Registration extends AppCompatActivity {
         });
     }
 
->>>>>>> 81066a0d596b97c0252d27089b71483f24614afc
 
     private void initLogin(){
         // login clickListener
