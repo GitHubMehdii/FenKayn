@@ -24,11 +24,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.print("HHHHHHHHHHHHHHHH ");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mydb = new DatabaseHelper(this);
 
-        Cursor res = mydb.getAll();
+  /*      Cursor res = mydb.getAll();
         if(res.getCount()==0){
             showMessage("Error ","Nothing Here");
 
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             showMessage("Data",buffer.toString());
         }
 
-
+*/
 
 
         // login clicked
@@ -65,24 +66,26 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                
                 // get data
-                String email = findViewById(R.id.loginEmail).toString().trim();
-                String password = findViewById(R.id.loginPassword).toString().trim();
+                String email = ((EditText)findViewById(R.id.loginEmail)).getText().toString().trim();
+                String password = ((EditText)findViewById(R.id.loginPassword)).getText().toString().trim();
 
                 // check user in DB
-                checkUser(email, password);
+                boolean isHere =mydb.checkUser(email, password);
+
+                if (isHere == true){
+                    Toast.makeText(MainActivity.this,"Connected",Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(MainActivity.this,"Data invalid",Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
 
 
 
-    private boolean checkUser(String email, String password){
 
-        // code here
-
-        return true;
-    }
     public void showMessage(String Title,String Message){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
