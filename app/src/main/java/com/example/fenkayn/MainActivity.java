@@ -30,11 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        // login the user
-        Intent intent = new Intent(MainActivity.this, Map.class);
-        startActivity(intent);
-
-
 /*
         Cursor res = mydb.getAll();
         if(res.getCount()==0){

@@ -4,7 +4,9 @@
     <color name="colorInfo">#55B9FA</color>
     <color name="colorDanger">#F33E3E</color>
     <color name="colorRose">#F49090</color>
+    <color name="colorRoseTrans">#F49090</color>
     <color name="colorGrey">#CCCCCC</color>
     <color name="colorBlack">#444444</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorTransparent">#00000000</color>
 </resources>

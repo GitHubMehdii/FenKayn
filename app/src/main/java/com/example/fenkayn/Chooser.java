@@ -32,6 +32,12 @@ public class Chooser extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(Chooser.this,"Supermarket",Toast.LENGTH_LONG).show();
+
+                // go to map
+                Intent intent = new Intent(Chooser.this, Map.class);
+                startActivity(intent);
+
+
             }
         });
 
@@ -41,6 +47,12 @@ public class Chooser extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(Chooser.this,"Medecin",Toast.LENGTH_LONG).show();
+
+
+                // go to map
+                Intent intent = new Intent(Chooser.this, Map.class);
+                startActivity(intent);
+
             }
         });
 
@@ -50,6 +62,12 @@ public class Chooser extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(Chooser.this,"Station",Toast.LENGTH_LONG).show();
+
+
+                // go to map
+                Intent intent = new Intent(Chooser.this, Map.class);
+                startActivity(intent);
+
             }
         });
 
@@ -59,8 +77,16 @@ public class Chooser extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(Chooser.this,"Banque",Toast.LENGTH_LONG).show();
+
+
+                // go to map
+                Intent intent = new Intent(Chooser.this, Map.class);
+                startActivity(intent);
+
             }
         });
+
+
 
     }
 }
