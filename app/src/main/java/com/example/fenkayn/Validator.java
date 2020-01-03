@@ -3,33 +3,71 @@ package com.example.fenkayn;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+
+import com.example.fenkayn.models.User;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class Validator {
 
-    public static final int EMAIL = 0;
-    public static final int PASSWORD = 1;
 
     /**
-     * Validates several types
+     * Validates isCheckedRadioButton
      *
-     * @param inputType
+     * @param radioGroup
+     * @return
+     */
+    public static boolean isCheckedRadioGroup(RadioGroup radioGroup){
+        return radioGroup.getCheckedRadioButtonId() != -1;
+    }
+
+
+    /**
+     * Validates emptiness
+     *
      * @param editText
      * @return
      */
-    public static boolean isValid(int inputType, EditText editText){
+    public static boolean isEmpty(EditText editText){
 
-        switch (inputType){
-            case EMAIL:
-                return isValidEmail(editText);
+        String text = editText.getText().toString().trim();
 
-            case PASSWORD:
-                return isValidLength(editText, 6);
-
-            default:
-                return false;
-
-        }
+        return 0 == text.length();
     }
+
+
+    /**
+     * Validates emptiness
+     *
+     * @param string
+     * @return
+     */
+    public static boolean isEmpty(String string){
+
+        String text = string.toString().trim();
+
+        return 0 == text.length();
+    }
+
+
+    /**
+     * Validates emptiness
+     *
+     * @param radioButton
+     * @return
+     */
+    public static boolean isEmpty(RadioButton radioButton){
+        String text = radioButton.getText().toString().trim();
+
+        return 0 == text.length();
+    }
+
 
     /**
      * Validates email
@@ -37,7 +75,7 @@ public class Validator {
      * @param editText
      * @return
      */
-    private static boolean isValidEmail(EditText editText){
+    public static boolean isValidEmail(EditText editText){
 
         final String pattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
@@ -53,10 +91,47 @@ public class Validator {
      * @param length
      * @return
      */
-    private static boolean isValidLength(EditText editText, int length){
+    public static boolean isValidLength(EditText editText, int length){
 
         String text = editText.getText().toString().trim();
-        return 0 < text.length() && text.length()< length;
+        return 0 < text.length() && text.length() < length;
+    }
+
+    /**
+     * Validates password confirmation
+     *
+     * @param editText1
+     * @param editText2
+     * @return
+     */
+    public static boolean isPasswordConfirmed(EditText editText1, EditText editText2){
+
+        String text1 = editText1.getText().toString().trim();
+        String text2 = editText2.getText().toString().trim();
+
+        return text1.equals(text2);
+    }
+
+    /**
+     * Validates birthDate < sysDate
+     *
+     * @param editText
+     * @return
+     */
+    public static boolean isValidBirthDate(EditText editText){
+
+        String text = editText.getText().toString().trim();
+
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        Date date = null;
+
+        try {
+            date = format.parse(text);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return date.compareTo(new Date()) < 0;
     }
 
 }

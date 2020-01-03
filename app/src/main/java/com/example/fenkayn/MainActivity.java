@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         // login clicked
         register = findViewById(R.id.register);
         register.setOnClickListener(new View.OnClickListener() {
@@ -35,5 +36,31 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
+
+        // loginButton clicked
+        loginButton = findViewById(R.id.loginButton);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // get data
+                String email = findViewById(R.id.loginEmail).toString().trim();
+                String password = findViewById(R.id.loginPassword).toString().trim();
+
+                // check user in DB
+                checkUser(email, password);
+            }
+        });
+
+    }
+
+
+
+    private boolean checkUser(String email, String password){
+
+        // code here
+
+        return true;
     }
 }
