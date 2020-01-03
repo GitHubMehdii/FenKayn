@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mydb = new DatabaseHelper(this);
-
+/*
         Cursor res = mydb.getAll();
         if(res.getCount()==0){
             showMessage("Error ","Nothing Here");
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             }
             showMessage("Data",buffer.toString());
         }
-
+*/
 
 
 

@@ -160,7 +160,8 @@
             android:text="Homme"
             android:textColor="@color/colorBlack"
             android:buttonTint="@color/design_default_color_primary"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:checked="true" />
 
         <RadioButton
             android:id="@+id/registerFemale"

@@ -12,9 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.fenkayn.models.User;
 
 import java.util.Calendar;
 public class Registration extends AppCompatActivity {
@@ -28,16 +31,6 @@ public class Registration extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-
-        DatabaseHelper mydb = new DatabaseHelper(this);
-
-        boolean isInserted = mydb.addUser("oussama@gmail.com","123","mehdiC","14/1/120","male");
-        if (isInserted = true){
-            Toast.makeText(Registration.this,"Data Inserted",Toast.LENGTH_LONG).show();
-        }else{
-            Toast.makeText(Registration.this,"Data Not Inserted",Toast.LENGTH_LONG).show();
-        }
-
 
         this.initLogin();
 
@@ -95,38 +88,75 @@ public class Registration extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // validation
 
+                // validation
                 String errorMessage = "Veuillez vérifier votre coordonnées!";
                 boolean isValid = true;
 
-                if(!Validator.isValidEmail((EditText)findViewById(R.id.registerEmail))){
-                    errorMessage += "\n   - Email invalide!";
+                EditText registerEmail = (EditText)findViewById(R.id.registerEmail);
+                EditText registerPassword = (EditText)findViewById(R.id.registerPassword);
+                EditText registerPasswordConfirmation = (EditText)findViewById(R.id.registerPasswordConfirmation);
+                EditText registerName = (EditText)findViewById(R.id.registerName);
+                EditText registerBirthDate = (EditText)findViewById(R.id.registerBirthDate);
+                RadioGroup registerGender = (RadioGroup) findViewById(R.id.registerGender);
+
+                if(!Validator.isValidEmail(registerEmail)){
+                    errorMessage += "\n   - Email invalid!";
                     isValid = false;
+                    registerEmail.setHintTextColor(getResources().getColor(R.color.colorDanger));
+                    registerEmail.setTextColor(getResources().getColor(R.color.colorDanger));
+                }
+                else{
+                    registerEmail.setHintTextColor(getResources().getColor(R.color.colorBlack));
+                    registerEmail.setTextColor(getResources().getColor(R.color.colorBlack));
                 }
 
-                if(!Validator.isValidLength((EditText)findViewById(R.id.registerPassword), 6)){
-                    errorMessage += "\n   - Mot de passe doit comporter un minimum de 6 caractères!";
+                if(!Validator.isValidLength(registerPassword, 6)){
+                    errorMessage += "\n   - Mot de passe invalid (6 caractères)!";
                     isValid = false;
+                    registerPassword.setHintTextColor(getResources().getColor(R.color.colorDanger));
+                    registerPassword.setTextColor(getResources().getColor(R.color.colorDanger));
+                }
+                else{
+                    registerPassword.setHintTextColor(getResources().getColor(R.color.colorBlack));
+                    registerPassword.setTextColor(getResources().getColor(R.color.colorBlack));
                 }
 
-                if(!Validator.isPasswordConfirmed((EditText)findViewById(R.id.registerPassword),
-                        (EditText)findViewById(R.id.registerPasswordConfirmation))){
+                if(!Validator.isPasswordConfirmed(registerPassword,
+                        registerPasswordConfirmation)){
                     errorMessage += "\n   - Confirmation invalide!";
                     isValid = false;
+                    registerPasswordConfirmation.setHintTextColor(getResources().getColor(R.color.colorDanger));
+                    registerPasswordConfirmation.setTextColor(getResources().getColor(R.color.colorDanger));
+                }
+                else{
+                    registerPasswordConfirmation.setHintTextColor(getResources().getColor(R.color.colorBlack));
+                    registerPasswordConfirmation.setTextColor(getResources().getColor(R.color.colorBlack));
                 }
 
-                if(Validator.isEmpty((EditText)findViewById(R.id.registerName))){
-                    errorMessage += "\n   - Saisissez votre nom!";
+                if(Validator.isEmpty(registerName)){
+                    errorMessage += "\n   - Nom invalid!";
                     isValid = false;
+                    registerName.setHintTextColor(getResources().getColor(R.color.colorDanger));
+                    registerName.setTextColor(getResources().getColor(R.color.colorDanger));
+                }
+                else{
+                    registerName.setHintTextColor(getResources().getColor(R.color.colorBlack));
+                    registerName.setTextColor(getResources().getColor(R.color.colorBlack));
                 }
 
-                if(!Validator.isValidBirthDate((EditText)findViewById(R.id.registerBirthDate))){
+                if(!Validator.isValidBirthDate(registerBirthDate)){
                     errorMessage += "\n   - Date de naissance invalide!";
                     isValid = false;
+                    registerBirthDate.setHintTextColor(getResources().getColor(R.color.colorDanger));
+                    registerBirthDate.setTextColor(getResources().getColor(R.color.colorDanger));
+                }
+                else{
+                    registerBirthDate.setHintTextColor(getResources().getColor(R.color.colorBlack));
+                    registerBirthDate.setTextColor(getResources().getColor(R.color.colorBlack));
                 }
 
-                if(!Validator.isCheckedRadioGroup(((RadioGroup)findViewById(R.id.registerGender)))){
+                if(!Validator.isCheckedRadioGroup(registerGender)){
                     errorMessage += "\n   - Êtes-vous un homme ou une femme!";
                     isValid = false;
                 }
@@ -140,11 +170,25 @@ public class Registration extends AppCompatActivity {
                             .show();
                 }
                 else{
+                    // set user
+                    User user = new User();
+                    user.setEmail(registerEmail.getText().toString().trim());
+                    user.setPassword(registerPassword.getText().toString().trim());
+                    user.setName(registerName.getText().toString().trim());
+                    user.setBirthDate(registerBirthDate.getText().toString().trim());
+
+                    int checkedId = registerGender.getCheckedRadioButtonId();
+                    RadioButton checkedRadio = (RadioButton)findViewById(checkedId);
+                    String gender = checkedRadio.getText().toString().trim().equals("Homme") ?
+                            "male" : "female";
+                    user.setGender(gender);
+
+                    System.out.println(user);
+
+                    // add user
                     // code here
                 }
 
-                ((EditText)findViewById(R.id.registerEmail)).setHintTextColor(getResources().getColor(R.color.colorRose));
-                ((EditText)findViewById(R.id.registerEmail)).setTextColor(getResources().getColor(R.color.colorRose));
             }
         });
 

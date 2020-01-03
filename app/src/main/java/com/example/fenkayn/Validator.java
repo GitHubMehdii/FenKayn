@@ -109,7 +109,11 @@ public class Validator {
         String text1 = editText1.getText().toString().trim();
         String text2 = editText2.getText().toString().trim();
 
-        return text1.equals(text2);
+        return text1 != null &&
+                text2 != null &&
+                text1.length() > 0 &&
+                text2.length() > 0 &&
+                text1.equals(text2);
     }
 
     /**
@@ -131,7 +135,7 @@ public class Validator {
             e.printStackTrace();
         }
 
-        return date.compareTo(new Date()) < 0;
+        return date != null && date.compareTo(new Date()) < 0;
     }
 
 }
