@@ -24,10 +24,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.print("HHHHHHHHHHHHHHHH ");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mydb = new DatabaseHelper(this);
+
+
+
+        // login the user
+        Intent intent = new Intent(MainActivity.this, Map.class);
+        startActivity(intent);
+
 
 /*
         Cursor res = mydb.getAll();
@@ -76,6 +82,11 @@ public class MainActivity extends AppCompatActivity {
 
                 if (isHere == true){
                     Toast.makeText(MainActivity.this,"Connected",Toast.LENGTH_LONG).show();
+
+                    // login the user
+                    Intent intent = new Intent(MainActivity.this, Chooser.class);
+                    startActivity(intent);
+
                 }else{
                     Toast.makeText(MainActivity.this,"Data invalid",Toast.LENGTH_LONG).show();
                 }
