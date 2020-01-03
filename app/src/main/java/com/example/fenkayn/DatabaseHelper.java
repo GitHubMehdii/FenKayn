@@ -59,4 +59,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor res = sqLiteDatabase.rawQuery("select * from user",null);
         return res;
     }
+
+    private boolean checkUser(String email, String password){
+
+        // code here
+
+        return true;
+    }
 }
